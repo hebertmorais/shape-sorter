@@ -1,0 +1,22 @@
+{
+  "name": "shape-sorter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:hebertmorais/shape-sorter.git",
+  "author": "Hebert Morais <hebertlucashllm@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "commitizen": "^4.2.3",
+    "commitlint": "^12.1.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^6.0.0",
+    "prettier": "2.2.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
