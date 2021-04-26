@@ -5,8 +5,15 @@
   "repository": "git@github.com:hebertmorais/shape-sorter.git",
   "author": "Hebert Morais <hebertlucashllm@gmail.com>",
   "license": "MIT",
-  "scripts": {
-    "create": "babel-node ./src/commands/create/index.js"
+  "dependencies": {
+    "react": "^16.12.0",
+    "react-copy-to-clipboard": "^5.0.2",
+    "react-dom": "^16.12.0",
+    "react-ga": "^2.7.0",
+    "react-inlinesvg": "^1.2.0",
+    "react-tippy": "^1.3.1",
+    "react-tooltip": "^3.11.2",
+    "react-use-form-state": "^0.12.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",
@@ -25,8 +32,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "dependencies": {
-    "prompts": "^2.4.1"
   }
 }
