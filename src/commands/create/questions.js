@@ -1,60 +1,60 @@
-import mockPackage from "../../mocks/package.json";
-
-export const defaultQuestions = [
-  {
-    type: "text",
-    name: "mf-name",
-    message: "What is the name of your micro frontend?",
-    validate: (name) =>
-      name === "" ? "The micro frontend name cannot be empty!" : true,
-  },
-  {
-    type: "text",
-    name: "mf-file-name",
-    message:
-      "What is the name the remote file to be created? (Enter to remoteEntry.js)",
-  },
-  {
-    type: "select",
-    name: "mf-type",
-    message: "What is the type of your micro frontend?",
-    choices: [
-      {
-        title: "Host (Shell)",
-        value: "host",
-      },
-      {
-        title: "Module",
-        value: "module",
-      },
-    ],
-  },
-  {
-    type: "select",
-    name: "mf-language",
-    message: "Which programming language you use in your project?",
-    choices: [
-      {
-        title: "Javascript Vanilla",
-        value: "js",
-      },
-      {
-        title: "Typescript",
-        value: "ts",
-      },
-    ],
-  },
-  {
-    type: "multiselect",
-    name: "mf-shared-dependencies",
-    message:
-      "Which dependencies would you like to share between your micro frontends?",
-    choices: Object.keys(mockPackage.dependencies).map((dependency) => {
-      return { title: dependency, value: dependency };
-    }),
-    instructions: "\n- Space to select. Enter to submit",
-  },
-];
+export const defaultQuestions = (dependencies) => {
+  return [
+    {
+      type: "text",
+      name: "mf-name",
+      message: "What is the name of your micro frontend?",
+      validate: (name) =>
+        name === "" ? "The micro frontend name cannot be empty!" : true,
+    },
+    {
+      type: "text",
+      name: "mf-file-name",
+      message:
+        "What is the name the remote file to be created? (Enter to remoteEntry.js)",
+    },
+    {
+      type: "select",
+      name: "mf-type",
+      message: "What is the type of your micro frontend?",
+      choices: [
+        {
+          title: "Host (Shell)",
+          value: "host",
+        },
+        {
+          title: "Module",
+          value: "module",
+        },
+      ],
+    },
+    {
+      type: "select",
+      name: "mf-language",
+      message: "Which programming language you use in your project?",
+      choices: [
+        {
+          title: "Javascript Vanilla",
+          value: "js",
+        },
+        {
+          title: "Typescript",
+          value: "ts",
+        },
+      ],
+    },
+    {
+      type: "multiselect",
+      name: "mf-shared-dependencies",
+      message:
+        "Which dependencies would you like to share between your micro frontends?",
+      choices: dependencies.map((dependency) => {
+        return { title: dependency, value: dependency };
+      }),
+      instructions: "\n- Space to select. Enter to submit",
+    },
+  ];
+};
 
 export const webpackVersionBelow5Question = {
   type: "select",
@@ -94,43 +94,51 @@ export const webpackNotFoundQuestion = {
   ],
 };
 
-export const isDependencySingletonQuestion = {
-  type: "select",
-  name: (dependency) => `is-singleton-${dependency}`,
-  message: (dependency) => `The dependency ${dependency} is a singleton?`,
-  choices: [
-    {
-      title: "Yes",
-      value: "yes",
-    },
-    {
-      title: "No",
-      value: "no",
-    },
-  ],
+export const isDependencySingletonQuestion = (dependency) => {
+  return {
+    type: "select",
+    name: `is-singleton-${dependency}`,
+    message: `The dependency ${dependency} is a singleton?`,
+    choices: [
+      {
+        title: "Yes",
+        value: "yes",
+      },
+      {
+        title: "No",
+        value: "no",
+      },
+    ],
+  };
 };
 
-export const isDependencyEagerQuestion = {
-  type: "select",
-  name: (dependency) => `is-eager-${dependency}`,
-  message: (dependency) => `The dependency ${dependency} is a eager?`,
-  choices: [
-    {
-      title: "Yes",
-      value: "yes",
-    },
-    {
-      title: "No",
-      value: "no",
-    },
-  ],
+export const isDependencyEagerQuestion = (dependency) => {
+  return {
+    type: "select",
+    name: `is-eager-${dependency}`,
+    message: `The dependency ${dependency} is a eager?`,
+    choices: [
+      {
+        title: "Yes",
+        value: "yes",
+      },
+      {
+        title: "No",
+        value: "no",
+      },
+    ],
+  };
 };
 
-export const isDependencyVersionDifferentQuestion = {
-  type: "text",
-  name: (dependency) => `is-different-version-${dependency}`,
-  message: (dependency, dependencyVersion) =>
-    `The version dependency ${dependency} is different from ${dependencyVersion}? (If yes insert the version, if no press Enter)`,
+export const isDependencyVersionDifferentQuestion = (
+  dependency,
+  dependencyVersion
+) => {
+  return {
+    type: "text",
+    name: `is-different-version-${dependency}`,
+    message: `The version of ${dependency} is different from ${dependencyVersion}? (If yes insert the version, if no press Enter)`,
+  };
 };
 
 export const modulesFederationExistsQuestion = {
