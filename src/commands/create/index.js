@@ -57,7 +57,7 @@ const buildShapeSorterConfig = ({
   mfFileName,
   mfType,
   mfLanguage,
-  mfDependenciesOpts,
+  mfBuiltSharedDependencies,
 }) => {
   return {
     name: mfName,
@@ -66,7 +66,7 @@ const buildShapeSorterConfig = ({
     exposes: {},
     type: mfType,
     language: mfLanguage,
-    shared: mfDependenciesOpts,
+    shared: mfBuiltSharedDependencies,
   };
 };
 
@@ -97,7 +97,7 @@ const runCreate = async () => {
     makeDependenciesQuestions(dependencies, mfSharedDependencies)
   );
 
-  const builtSharedDependencies = buildSharedDependencies(
+  const mfBuiltSharedDependencies = buildSharedDependencies(
     mfSharedDependencies,
     mfDependenciesOpts
   );
@@ -106,7 +106,7 @@ const runCreate = async () => {
     mfFileName,
     mfType,
     mfLanguage,
-    mfDependenciesOpts: builtSharedDependencies,
+    mfBuiltSharedDependencies,
   });
   console.log(shapeSorter);
   fs.writeFileSync(
