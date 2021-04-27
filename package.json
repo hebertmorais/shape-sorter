@@ -5,8 +5,9 @@
   "repository": "git@github.com:hebertmorais/shape-sorter.git",
   "author": "Hebert Morais <hebertlucashllm@gmail.com>",
   "license": "MIT",
-  "scripts": {
-    "create": "babel-node ./src/commands/create/index.js"
+  "bin": {
+    "@hebertmorais/shape-sorter": "bin/shape-sorter",
+    "shape-sorter": "bin/shape-sorter"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",
@@ -27,6 +28,7 @@
     }
   },
   "dependencies": {
+    "esm": "^3.2.25",
     "prompts": "^2.4.1"
   }
 }

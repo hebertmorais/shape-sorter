@@ -10,19 +10,6 @@ import mockPackage from "../../mocks/package.json";
 const dependencies = mockPackage.dependencies;
 const dependenciesKeys = Object.keys(dependencies);
 
-(async () => {
-  const answers = await prompts(defaultQuestions(dependenciesKeys));
-  const mfName = answers["mf-name"];
-  const mfFileName = answers["mf-file-name"];
-  const mfType = answers["mf-type"];
-  const mfLanguage = answers["mf-language"];
-  const mfSharedDependencies = answers["mf-shared-dependencies"];
-  const versionAnswers = await prompts(
-    makeDependenciesQuestions(dependencies, mfSharedDependencies)
-  );
-  console.log(answers, versionAnswers);
-})();
-
 function makeDependenciesQuestions(packageDependencies, mfSharedDependencies) {
   const sharedDependenciesSingletonQuestions = [];
   mfSharedDependencies.map((sharedDependency) => {
@@ -63,3 +50,18 @@ function makeDependenciesQuestions(packageDependencies, mfSharedDependencies) {
 
   return dependenciesQuestionsRightOrder;
 }
+
+const runCreate = async () => {
+  const answers = await prompts(defaultQuestions(dependenciesKeys));
+  const mfName = answers["mf-name"];
+  const mfFileName = answers["mf-file-name"];
+  const mfType = answers["mf-type"];
+  const mfLanguage = answers["mf-language"];
+  const mfSharedDependencies = answers["mf-shared-dependencies"];
+  const versionAnswers = await prompts(
+    makeDependenciesQuestions(dependencies, mfSharedDependencies)
+  );
+  console.log(answers, versionAnswers);
+};
+
+export default runCreate;
