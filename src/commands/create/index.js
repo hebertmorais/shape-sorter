@@ -5,9 +5,10 @@ import {
   isDependencySingletonQuestion,
   isDependencyVersionDifferentQuestion,
 } from "./questions";
-import mockPackage from "../../mocks/package.json";
+import fs from "fs";
+const pck = require(`${process.cwd()}/package.json`);
 
-const dependencies = mockPackage.dependencies;
+const dependencies = pck.dependencies;
 const dependenciesKeys = Object.keys(dependencies);
 
 function makeDependenciesQuestions(packageDependencies, mfSharedDependencies) {
@@ -51,17 +52,67 @@ function makeDependenciesQuestions(packageDependencies, mfSharedDependencies) {
   return dependenciesQuestionsRightOrder;
 }
 
+const buildShapeSorterConfig = ({
+  mfName,
+  mfFileName,
+  mfType,
+  mfLanguage,
+  mfDependenciesOpts,
+}) => {
+  return {
+    name: mfName,
+    filename: mfFileName,
+    remotes: {},
+    exposes: {},
+    type: mfType,
+    language: mfLanguage,
+    shared: mfDependenciesOpts,
+  };
+};
+
+const buildSharedDependencies = (mfDependencies, mfDependenciesOpts) => {
+  let depObj = {};
+  mfDependencies.map((dependency) => {
+    depObj[dependency] = {
+      singleton:
+        mfDependenciesOpts[`is-singleton-${dependency}`] !== "" || false,
+      eager: mfDependenciesOpts[`is-eager-${dependency}`] !== "" || false,
+      requiredVersion:
+        mfDependenciesOpts[`is-different-version-${dependency}`] ||
+        dependencies[dependency],
+    };
+    console.log(depObj);
+  });
+  return depObj;
+};
+
 const runCreate = async () => {
   const answers = await prompts(defaultQuestions(dependenciesKeys));
   const mfName = answers["mf-name"];
-  const mfFileName = answers["mf-file-name"];
+  const mfFileName = answers["mf-file-name"] || "remoteEntry.js";
   const mfType = answers["mf-type"];
   const mfLanguage = answers["mf-language"];
   const mfSharedDependencies = answers["mf-shared-dependencies"];
-  const versionAnswers = await prompts(
+  const mfDependenciesOpts = await prompts(
     makeDependenciesQuestions(dependencies, mfSharedDependencies)
   );
-  console.log(answers, versionAnswers);
+
+  const builtSharedDependencies = buildSharedDependencies(
+    mfSharedDependencies,
+    mfDependenciesOpts
+  );
+  const shapeSorter = buildShapeSorterConfig({
+    mfName,
+    mfFileName,
+    mfType,
+    mfLanguage,
+    mfDependenciesOpts: builtSharedDependencies,
+  });
+  console.log(shapeSorter);
+  fs.writeFileSync(
+    `${process.cwd()}/.shapesorterrc.json`,
+    JSON.stringify(shapeSorter)
+  );
 };
 
 export default runCreate;

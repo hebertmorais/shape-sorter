@@ -1,10 +1,10 @@
 import runCreate from "../src/commands/create";
 
-export function cli([, , ...args]) {
+export const cli = async ([, , ...args]) => {
   const command = args[0];
   const [, ...params] = args;
 
   if (command === "create") {
-    runCreate();
+    await runCreate(params);
   }
-}
+};

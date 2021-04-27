@@ -1,0 +1,12 @@
+{
+  "name": "cancelation",
+  "filename": "remoteEntry.js",
+  "remotes": {},
+  "exposes": {},
+  "type": "module",
+  "language": "ts",
+  "shared": {
+    "esm": { "singleton": true, "eager": true, "requiredVersion": "^3.2.25" },
+    "prompts": { "singleton": true, "eager": true, "requiredVersion": "^2.4.1" }
+  }
+}
