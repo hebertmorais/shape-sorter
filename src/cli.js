@@ -1,5 +1,6 @@
 import runCreate from "../src/commands/create";
 import runAddRemote from "../src/commands/remote";
+import runExpose from "../src/commands/expose";
 
 export const cli = async ([, , ...args]) => {
   const command = args[0];
@@ -10,5 +11,9 @@ export const cli = async ([, , ...args]) => {
   }
   if (command === "remote") {
     await runAddRemote(params);
+  }
+
+  if (command === "expose") {
+    await runExpose(params);
   }
 };
