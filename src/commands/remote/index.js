@@ -17,10 +17,13 @@ const runAddRemote = async () => {
     shapesorterConfig.remotes[mfModuleUseName] = mfModuleName;
     fs.writeFileSync(
       `${process.cwd()}/.shapesorterrc.json`,
-      JSON.stringify(shapesorterConfig)
+      JSON.stringify(shapesorterConfig, null, 4)
     );
     createRemoteTemplate(mfModuleUseName, mfComponentName);
     addRemoteAddressToIndex(mfRunningAddress);
+    console.log(
+      `Remote ${mfModuleName}/${mfComponentName} created successfully!`
+    );
   } catch (error) {
     console.error(error);
   }
