@@ -8,12 +8,6 @@ export const defaultQuestions = (dependencies) => {
         name === "" ? "The micro frontend name cannot be empty!" : true,
     },
     {
-      type: "text",
-      name: "mf-file-name",
-      message:
-        "What is the name the remote file to be created? (Enter to remoteEntry.js)",
-    },
-    {
       type: "select",
       name: "mf-type",
       message: "What is the type of your micro frontend?",
@@ -29,19 +23,9 @@ export const defaultQuestions = (dependencies) => {
       ],
     },
     {
-      type: "select",
-      name: "mf-language",
-      message: "Which programming language you use in your project?",
-      choices: [
-        {
-          title: "Javascript Vanilla",
-          value: "js",
-        },
-        {
-          title: "Typescript",
-          value: "ts",
-        },
-      ],
+      type: "text",
+      name: "mf-port",
+      message: "Which port would you like to run your project?",
     },
     {
       type: "multiselect",
