@@ -8,12 +8,15 @@ import {
 } from "../utils/file";
 import { parse } from "node-html-parser";
 
-const currentDir = process.cwd();
-const reactTemplateZipPath = "../../templates/react.zip";
+export const currentDir = process.cwd();
+const reactHostTemplateZipPath = "../../templates/reactHost.zip";
+const reactModuleTemplateZipPath = "../../templates/reactModule.zip";
 const remoteTemplatePath = "../../templates/remote.txt";
 
-export const copyReactTemplate = () => {
-  unzipToDirectory(reactTemplateZipPath, currentDir);
+export const copyReactTemplate = (type) => {
+  const reactZipTemplatePath =
+    type == "host" ? reactHostTemplateZipPath : reactModuleTemplateZipPath;
+  unzipToDirectory(reactZipTemplatePath, currentDir);
 };
 
 export const createRemoteTemplate = (remoteName, moduleName) => {
