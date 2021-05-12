@@ -5,11 +5,8 @@ import {
   isDependencySingletonQuestion,
   isDependencyVersionDifferentQuestion,
 } from "./questions";
-import fs from "fs";
-const pck = require(`${process.cwd()}/package.json`);
-
-const dependencies = pck.dependencies;
-const dependenciesKeys = Object.keys(dependencies);
+import { writeDataInFile } from "../../utils/file";
+import { copyReactTemplate } from "../../utils/templates";
 
 function makeDependenciesQuestions(packageDependencies, mfSharedDependencies) {
   const sharedDependenciesSingletonQuestions = [];
@@ -35,6 +32,7 @@ function makeDependenciesQuestions(packageDependencies, mfSharedDependencies) {
       )
     );
   });
+
   const allDependenciesQuestions = [
     sharedDependenciesVersionQuestions,
     sharedDependenciesEagerQuestions,
@@ -54,18 +52,16 @@ function makeDependenciesQuestions(packageDependencies, mfSharedDependencies) {
 
 const buildShapeSorterConfig = ({
   mfName,
-  mfFileName,
   mfType,
-  mfLanguage,
+  mfPort,
   mfBuiltSharedDependencies,
 }) => {
   return {
     name: mfName,
-    filename: mfFileName,
     remotes: {},
     exposes: {},
     type: mfType,
-    language: mfLanguage,
+    port: mfPort,
     shared: mfBuiltSharedDependencies,
   };
 };
@@ -81,17 +77,20 @@ const buildSharedDependencies = (mfDependencies, mfDependenciesOpts) => {
         mfDependenciesOpts[`is-different-version-${dependency}`] ||
         dependencies[dependency],
     };
-    console.log(depObj);
   });
   return depObj;
 };
 
+copyReactTemplate();
+const pck = require(`${process.cwd()}/package.json`);
+const dependencies = pck.dependencies;
+const dependenciesKeys = Object.keys(dependencies);
+
 const runCreate = async () => {
   const answers = await prompts(defaultQuestions(dependenciesKeys));
   const mfName = answers["mf-name"];
-  const mfFileName = answers["mf-file-name"] || "remoteEntry.js";
   const mfType = answers["mf-type"];
-  const mfLanguage = answers["mf-language"];
+  const mfPort = answers["mf-port"];
   const mfSharedDependencies = answers["mf-shared-dependencies"];
   const mfDependenciesOpts = await prompts(
     makeDependenciesQuestions(dependencies, mfSharedDependencies)
@@ -101,18 +100,19 @@ const runCreate = async () => {
     mfSharedDependencies,
     mfDependenciesOpts
   );
+
   const shapeSorter = buildShapeSorterConfig({
     mfName,
-    mfFileName,
     mfType,
-    mfLanguage,
+    mfPort,
     mfBuiltSharedDependencies,
   });
-  console.log(shapeSorter);
-  fs.writeFileSync(
-    `${process.cwd()}/.shapesorterrc.json`,
-    JSON.stringify(shapeSorter)
-  );
+
+  const configPath = `${process.cwd()}/.shapesorterrc.json`;
+  const data = JSON.stringify(shapeSorter);
+
+  writeDataInFile(configPath, data);
+  console.log("Configuração criada com sucesso");
 };
 
 export default runCreate;
