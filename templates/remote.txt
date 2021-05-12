@@ -1,0 +1,13 @@
+import React from 'react';
+
+const {{componentName}} = React.lazy(() => import("{{moduleImport}}"));
+
+const {{moduleName}} = () => {
+  return (
+    <React.Suspense fallback="Loading {{moduleName}}">
+      <{{componentName}}/>
+    </React.Suspense>
+  ); 
+};
+
+export default {{moduleName}};
