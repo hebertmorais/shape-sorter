@@ -30,6 +30,7 @@
   "dependencies": {
     "adm-zip": "^0.5.5",
     "esm": "^3.2.25",
+    "node-html-parser": "^3.3.0",
     "prompts": "^2.4.1"
   }
 }

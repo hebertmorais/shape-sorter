@@ -4,7 +4,9 @@ import {
   getFolderDirectoryPath,
   addFileToDirectory,
   getSafeFileNameFromString,
+  writeDataInFile,
 } from "../utils/file";
+import { parse } from "node-html-parser";
 
 const currentDir = process.cwd();
 const reactTemplateZipPath = "../../templates/react.zip";
@@ -32,4 +34,24 @@ export const createRemoteTemplate = (remoteName, moduleName) => {
     `${fileName}.${fileExtension}`,
     templateContent
   );
+};
+
+export const addRemotePortToIndex = (port) => {
+  const indexPath = `${currentDir}/src/index.html`;
+  let indexHtmlContent = openFile(indexPath, {
+    encoding: "utf8",
+    flag: "r",
+  });
+
+  const remoteLocation = `http://localhost:${port}/remoteEntry.js`;
+  const remoteScript = `<script src="${remoteLocation}"></script>\n`;
+
+  if (!indexHtmlContent.includes(remoteLocation)) {
+    const root = parse(indexHtmlContent);
+    const scriptAsHtmlNode = parse(remoteScript);
+    const head = root.querySelector("head");
+    head.appendChild(scriptAsHtmlNode);
+    indexHtmlContent = root.toString();
+  }
+  writeDataInFile(indexPath, indexHtmlContent);
 };
