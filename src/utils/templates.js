@@ -36,14 +36,14 @@ export const createRemoteTemplate = (remoteName, moduleName) => {
   );
 };
 
-export const addRemotePortToIndex = (port) => {
+export const addRemoteAddressToIndex = (address) => {
   const indexPath = `${currentDir}/src/index.html`;
   let indexHtmlContent = openFile(indexPath, {
     encoding: "utf8",
     flag: "r",
   });
 
-  const remoteLocation = `http://localhost:${port}/remoteEntry.js`;
+  const remoteLocation = `${address}/remoteEntry.js`;
   const remoteScript = `<script src="${remoteLocation}"></script>\n`;
 
   if (!indexHtmlContent.includes(remoteLocation)) {

@@ -14,6 +14,13 @@ export const defaultQuestions = () => {
     },
     {
       type: "text",
+      name: "mf-component-name",
+      message:
+        "What's the name of the component you'd like to import? (eg: Main)",
+      validate: (name) => (name === "" ? "The name cannot be empty!" : true),
+    },
+    {
+      type: "text",
       name: "mf-module-address",
       message: "What's the address that you module is running?",
     },
