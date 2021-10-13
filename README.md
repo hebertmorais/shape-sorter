@@ -135,6 +135,7 @@ The command lists all dependencies that have not yet been shared and the develop
 
 
 The command displays a list of dependencies, and the developer can select the ones they want to add. After selection, the following questions are asked for each selected dependency:
+
 `Is the dependency a singleton? (a single version)`
 
 `Is the dependency eager? (is loaded at initialization)`
