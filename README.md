@@ -22,7 +22,7 @@ Image 2.1
 
 Tool installation using the command:
 
-$ npm install -g shape-sorter
+`$ npm install -g shape-sorter
 
 This command allows you to install Shape Sorter and use the CLI in any project globally.
 
@@ -36,7 +36,7 @@ After that, templates are created in each project.
 
 The creation of the product page project, which is a host (page that includes all the others), is done through the command:
 
-$shape-sorter create
+`$ shape-sorter create`
 
 This command shows some questions for creating the project, which are:
 What is the name of the project?
@@ -54,8 +54,9 @@ When the command is executed and the questions answered, a project is created in
 
 To start the project and view it in the browser, just enter the commands:
 
-$ npm install // or yarn
-$ npm run start // or yarn start
+`$ npm install // or yarn`
+
+`$ npm run start // or yarn start`
 
 After that, the project will already be running in the browser, and can be accessed as localhost address and the port inserted in the creation.
 
@@ -75,7 +76,7 @@ Above the two components related to the checkout project, Basket and CheckoutBut
 
 To expose the Basket and CheckButton components to the product page, the following command is entered:
 
-$shape-sorter expose
+`$ shape-sorter expose`
 
 This command will ask the developer:
 What name will expose this component with?
@@ -94,7 +95,7 @@ Above image of RelatedProducts component in checkout project
 # Importing a module
 In order for all micro frontends to be integrated into the final project, the components exposed above are attached as remote modules in the host products through the following command:
 
-$ shape-sorter remote
+`$ shape-sorter remote`
 
 ![image](https://user-images.githubusercontent.com/8145430/118289454-bd1af580-b4ab-11eb-8682-2984f0081d30.png)
 
@@ -123,9 +124,9 @@ In order to demonstrate the sharing of dependencies between micro frontends, a l
 ![image](https://user-images.githubusercontent.com/8145430/118289583-e176d200-b4ab-11eb-880a-e36bb8b74c37.png)
 
 
-To share the library between projects, so that there is no code redundancy or divergence between summers, the developer can insert which dependencies he would like to share between projects with the following command:
+To share the library between projects, so that there is no code redundancy or divergence between versions, the developer can insert which dependencies he would like to share between projects with the following command:
 
-$ shape-sorter dependency
+`$ shape-sorter dependency`
 
 ![image](https://user-images.githubusercontent.com/8145430/118289610-e9cf0d00-b4ab-11eb-96fa-bf1e38f9a196.png)
 
@@ -134,5 +135,6 @@ The command lists all dependencies that have not yet been shared and the develop
 
 
 The command displays a list of dependencies, and the developer can select the ones they want to add. After selection, the following questions are asked for each selected dependency:
-Is the dependency a singleton? (a single version)
-Is the dependency eager? (is loaded at project start)
+`Is the dependency a singleton? (a single version)`
+
+`Is the dependency eager? (is loaded at initialization)`
